@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yashika Gupta | CyberBio Researcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-teal': '#00f5ff',
+                        'neon-pink': '#ff00e4',
+                        'matrix-green': '#00ff41',
+                        'violet-fusion': '#9d00ff',
+                        'cyber-yellow': '#ffee00',
+                        'cyber-gray': '#1a1a1a',
+                        'terminal-green': '#39ff14',
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'typewriter': 'typewriter 2s steps(11) forwards',
+                        'flicker': 'flicker 1.5s infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%, 100%': { 'text-shadow': '0 0 5px #00f5ff, 0 0 10px #00f5ff' },
+                            '50%': { 'text-shadow': '0 0 20px #00f5ff, 0 0 30px #00f5ff' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        typewriter: {
+                            'from': { width: '0' },
+                            'to': { width: '11ch' }
+                        },
+                        flicker: {
+                            '0%': { opacity: '0.5' },
+                            '100%': { opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0a0a0a;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: #00f5ff #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: #00f5ff;
+            border-radius: 10px;
+        }
+        
+        .cyber-title {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .hacker-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hacker-text::after {
+            content: '_';
+            position: absolute;
+            right: -10px;
+            color: #00f5ff;
+            animation: flicker 0.8s infinite;
+        }
+        
+        .cyber-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            transform-style: preserve-3d;
+            perspective: 500px;
+        }
+        
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+        
+        .grid-pattern {
+            background: 
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .cyber-card {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, #00f5ff, #ff00e4, #00f5ff);
+            background-size: 200% 200%;
+            filter: blur(10px);
+            z-index: -1;
+            opacity: 0.5;
+            transition: 0.5s;
+        }
+        
+        .cyber-card:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 20px 50px rgba(0, 245, 255, 0.2);
+        }
+        
+        .cyber-card:hover::before {
+            opacity: 0.8;
+            background-position: 100% 100%;
+        }
+        
+        .hud-element {
+            position: relative;
+        }
+        
+        .hud-element::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, #ff00e4);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .hud-element:hover::before {
+            transform: scaleX(1);
+        }
+        
+        @keyframes scanline {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+        
+        .scanlines {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scanlines::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to bottom, 
+                    transparent 0%, 
+                    rgba(0, 245, 255, 0.05) 50%, 
+                    transparent 100%);
+            background-size: 100% 4px;
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+        
+        .binary-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 245, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 30%, rgba(255, 0, 228, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 50% 70%, rgba(0, 255, 65, 0.03) 0%, transparent 20%);
+            pointer-events: none;
+        }
+        
+        .binary-character {
+            position: absolute;
+            color: rgba(0, 255, 65, 0.5);
+            font-family: 'Roboto Mono', monospace;
+            animation: binaryFall linear infinite;
+            user-select: none;
+        }
+        
+        @keyframes binaryFall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden grid-pattern">
+    <div class="binary-rain" id="binaryRain"></div>
+    <div class="scanlines fixed inset-0 pointer-events-none z-30"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-sm border-b border-cyber-teal/20 shadow-lg shadow-cyber-teal/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="cyber-title text-2xl font-bold tracking-wider text-cyber-teal glow">YASHIKA_V4.2.0</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hud-element px-3 py-2 rounded-md text-sm font-medium text-white hover:text-cyber-teal transition-colors duration-300">>HOME</a>
+                        <a href="#about" class="hud-element px-3 py-2 rounded-md text-sm font-medium text-white hover:text-neon-pink transition-colors duration-300">>ABOUT</a>
+                        <a href="#skills" class="hud-element px-3 py-2 rounded-md text-sm font-medium text-white hover:text-matrix-green transition-colors duration-300">>SKILLS</a>
+                        <a href="#experience" class="hud-element px-3 py-2 rounded-md text-sm font-medium text-white hover:text-violet-fusion transition-colors duration-300">>EXPERIENCE</a>
+                        <a href="#projects" class="hud-element px-3 py-2 rounded-md text-sm font-medium text-white hover:text-cyber-yellow transition-colors duration-300">>PROJECTS</a>
+                        <a href="#contact" class="hud-element px-3 py-2 rounded-md text-sm font-medium text-white hover:text-cyber-teal transition-colors duration-300">>CONTACT</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6 text-cyber-teal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-cyber-gray">> Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-cyber-gray">> About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-cyber-gray">> Skills</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-cyber-gray">> Experience</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-cyber-gray">> Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-cyber-gray">> Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-cyber-teal rounded-full filter blur-3xl opacity-10 animate-blob mix-blend-multiply"></div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-neon-pink rounded-full filter blur-3xl opacity-10 animate-blob animation-delay-2000 mix-blend-multiply"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-matrix-green rounded-full filter blur-3xl opacity-10 animate-blob animation-delay-4000 mix-blend-multiply"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 cyber-title tracking-tight">
+                    <span class="block text-cyber-teal glow">>COMPUTATIONAL_</span>
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyber-teal via-matrix-green to-cyber-yellow animate-pulse">BIOLOGY.SYS</span>
+                </h1>
+                <div class="hacker-text text-xl text-gray-300 mb-8 font-medium leading-relaxed">
+                    > Developing AI-driven solutions for peptide therapeutics, molecular modeling, and large-scale biological data analysis.
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="cyber-button bg-gradient-to-r from-cyber-teal to-matrix-green text-black px-6 py-3 rounded-full font-bold tracking-wider hover:shadow-lg hover:shadow-cyber-teal/50 transition-all duration-300">
+                        > GET_IN_TOUCH
+                    </a>
+                    <a href="#projects" class="cyber-button border-2 border-cyber-teal text-cyber-teal px-6 py-3 rounded-full font-bold tracking-wider hover:bg-cyber-teal hover:text-black transition-all duration-300">
+                        > VIEW_PROJECTS
+                    </a>
+                </div>
+            </div>
+            <div class="relative h-96">
+                <div class="absolute inset-0 cyber-card bg-cyber-gray rounded-lg backdrop-blur-sm border border-gray-800/50">
+                    <div class="w-full h-full bg-gradient-to-br from-purple-900/10 to-blue-900/10 rounded-lg flex flex-col items-center justify-center p-8 text-center">
+                        <div class="w-32 h-32 bg-gradient-to-r from-cyber-teal to-matrix-green rounded-full flex items-center justify-center mb-6 float">
+                            <i class="fas fa-dna text-6xl text-black"></i>
+                        </div>
+                        <h3 class="cyber-title text-2xl font-bold text-cyber-teal glow mb-2">> YASHIKA_GUPTA</h3>
+                        <p class="text-gray-300 font-medium">> B.Tech_BIOTECH@JIIT</p>
+                        <p class="text-gray-400 text-sm mt-4">> Specialization: BIOINFORMATICS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMDAwMDAwIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiMwMGY1ZmYiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=')]"></div>
+        </div>
+        
+        <div class="text-center mb-16 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 cyber-title tracking-wider">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-teal to-neon-pink">[ABOUT_ME]</span>
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-cyber-teal to-neon-pink mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+                <div class="cyber-card bg-cyber-gray rounded-lg p-8 h-full border border-gray-800/50">
+                    <h3 class="text-2xl font-bold text-white mb-6 cyber-title tracking-wider">
+                        <span class="text-cyber-teal">[EDUCATION]</span>
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="relative pl-8">
+                            <div class="absolute left-0 w-3 h-3 rounded-full bg-matrix-green top-2 animate-pulse"></div>
+                            <h4 class="text-xl font-bold text-white cyber-title">
+                                <span class="text-cyber-teal">></span> Jaypee Institute of Information Technology
+                            </h4>
+                            <p class="text-matrix-green font-medium">
+                                > B.Tech. Biotechnology (2019-2023)
+                            </p>
+                            <div class="text-gray-400 text-sm mt-2 space-y-2">
+                                <p class="flex">
+                                    <span class="text-cyber-teal mr-2">::</span>
+                                    <span>Major: Biotechnology (Specialization- Bioinformatics/Computational Biology)</span>
+                                </p>
+                                <p class="flex">
+                                    <span class="text-cyber-teal mr-2">::</span>
+                                    <span>Minor: Computer Science</span>
+                                </p>
+                                <p class="flex">
+                                    <span class="text-cyber-teal mr-2">::</span>
+                                    <span>GPA: 3.8/4.0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="text-gray-300 mb-6 leading-relaxed font-medium">
+                    <span class="text-cyber-teal">></span> I'm a computational biologist with a cybernetic approach to bioinformatics research, passionate about developing innovative computational solutions for drug discovery and precision medicine.
+                </p>
+                <p class="text-gray-300 mb-6 leading-relaxed font-medium">
+                    <span class="text-cyber-teal">></span> My expertise lies in AI-driven peptide therapeutics, molecular modeling, and large-scale biological data analysis. I'm particularly interested in applying advanced bioinformatics and machine learning methodologies to solve complex biological problems.
+                </p>
+                <p class="text-gray-300 leading-relaxed font-medium">
+                    <span class="text-cyber-teal">></span> Currently seeking opportunities in industry or research settings where I can contribute my skills in computational biology to impactful projects that advance our understanding of biological systems and develop novel therapies.
+                </p>
+                
+                <div class="mt-8 grid grid-cols-2 gap-4">
+                    <div class="cyber-card bg-cyber-gray p-4 rounded-lg border border-gray-800/50">
+                        <h4 class="text-cyber-teal font-bold mb-2">> RESEARCH FOCUS</h4>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li class="flex">
+                                <span class="text-matrix-green mr-2">></span>
+                                <span>AI in Drug Discovery</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-matrix-green mr-2">></span>
+                                <span>Peptide Therapeutics</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-matrix-green mr-2">></span>
+                                <span>Molecular Dynamics</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cyber-card bg-cyber-gray p-4 rounded-lg border border-gray-800/50">
+                        <h4 class="text-cyber-teal font-bold mb-2">> METHODOLOGIES</h4>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li class="flex">
+                                <span class="text-matrix-green mr-2">></span>
+                                <span>Computational Biology</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-matrix-green mr-2">></span>
+                                <span>Structural Bioinformatics</span>
+                            </li>
+                            <li class="flex">
+                                <span class="text-matrix-green mr-2">></span>
+                                <span>Machine Learning</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-black/50 backdrop-blur-sm relative overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-900/10 via-black/80 to-black"></div>
+        </div>
+        
+        <div class="text-center mb-16 relative">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 cyber-title tracking-wider">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-matrix-green to-cyber-teal">[SKILLS.SYS]</span>
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-matrix-green to-cyber-teal mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 relative">
+            <!-- Programming Skills -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50">
+                <div class="p-6 h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyber-teal to-matrix-green flex items-center justify-center mr-4">
+                            <i class="fas fa-terminal text-xl text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white cyber-title tracking-wider">
+                            <span class="text-matrix-green">></span> PROGRAMMING
+                        </h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">Python</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">Bash</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">C/C++</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">Java</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">Perl</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">Biopython</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">pandas</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">scikit-learn</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-matrix-green mr-2"></span>
+                            <span class="text-gray-300 text-sm">RDKit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bioinformatics Skills -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50">
+                <div class="p-6 h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-neon-pink to-violet-fusion flex items-center justify-center mr-4">
+                            <i class="fas fa-dna text-xl text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white cyber-title tracking-wider">
+                            <span class="text-neon-pink">></span> BIOINFORMATICS
+                        </h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">Sequence Analysis</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">RNA-seq</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">scRNA-seq</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">Molecular Docking</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">Protein Prediction</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">Metagenomics</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">Variant Calling</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-neon-pink mr-2"></span>
+                            <span class="text-gray-300 text-sm">Microarray Data</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Advanced Techniques -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50">
+                <div class="p-6 h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-violet-fusion to-cyber-yellow flex items-center justify-center mr-4">
+                            <i class="fas fa-brain text-xl text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white cyber-title tracking-wider">
+                            <span class="text-violet-fusion">></span> TECHNIQUES
+                        </h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">GROMACS</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">NAMD/VMD</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">MD Simulations</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">Virtual Screening</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">Drug Design (LLMs)</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">CRISPR Design</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">Genome Annotation</span>
+                        </div>
+                        <div class="bg-gray-800/50 border border-gray-700 rounded px-3 py-2 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-violet-fusion mr-2"></span>
+                            <span class="text-gray-300 text-sm">Network Biology</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-b from-black/90 to-cyan-900/10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMDAwMDAwIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiMwMGY1ZmYiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=')] opacity-10 z-0"></div>
+        
+        <div class="text-center mb-16 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 cyber-title tracking-wider">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-yellow to-neon-pink">[EXPERIENCE]</span>
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-cyber-yellow to-neon-pink mx-auto"></div>
+        </div>
+        
+        <div class="max-w-3xl mx-auto relative z-10">
+            <div class="cyber-card bg-black/70 rounded-lg border border-gray-800/50 backdrop-blur-sm">
+                <div class="p-8">
+                    <div class="relative pl-8 pb-8">
+                        <div class="absolute left-0 w-4 h-4 rounded-full bg-neon-pink top-1 animate-pulse"></div>
+                        <h3 class="text-xl font-bold text-white cyber-title tracking-wider mb-2">
+                            <span class="text-cyber-yellow">></span> Research Intern
+                        </h3>
+                        <p class="text-matrix-green font-medium">
+                            > Indraprastha Institute of Information Technology Delhi
+                        </p>
+                        <p class="text-gray-400 text-sm mb-4">> 03/2023 - Present</p>
+                        
+                        <div class="text-gray-300 mt-6 space-y-4 font-medium">
+                            <p class="flex">
+                                <span class="text-cyber-yellow mr-2">></span>
+                                <span>Spearheaded the development of peptide-based therapeutics for metabolic monogenic disorder AATD, leveraging cutting-edge large language models to innovate sequence design and structural prediction.</span>
+                            </p>
+                            <p class="flex">
+                                <span class="text-cyber-yellow mr-2">></span>
+                                <span>Performed high-precision docking studies and Molecular Dynamics Simulations to evaluate therapeutic potential of the peptides against NE.</span>
+                            </p>
+                            <p class="flex">
+                                <span class="text-cyber-yellow mr-2">></span>
+                                <span>Conceptualized and designed cost-efficient AI-driven peptide therapies for AATD with translational applicability.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-black/70 backdrop-blur-sm relative overflow-hidden">
+        <div class="text-center mb-16 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 cyber-title tracking-wider">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-cyber-teal">[PROJECTS.SYS]</span>
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-neon-pink to-cyber-teal mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+            <!-- Project 1 -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50 h-full flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-cyber-teal to-matrix-green flex items-center justify-center mb-4">
+                        <i class="fas fa-robot text-3xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 cyber-title tracking-wider">
+                        <span class="text-matrix-green">></span> AI_PEPTIDE
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-6">
+                        Engineered peptide therapeutics using Large Language Models for Alpha-1 Antitrypsin Deficiency (AATD) with potential translational applications.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-matrix-green/50 text-matrix-green rounded-full">LLMs</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-matrix-green/50 text-matrix-green rounded-full">Docking</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-matrix-green/50 text-matrix-green rounded-full">MD_Sim</span>
+                    </div>
+                </div>
+                <div class="px-6 pb-4">
+                    <div class="border-t border-gray-700 pt-4">
+                        <a href="#" class="cyber-button text-xs text-cyber-teal hover:text-black hover:bg-cyber-teal border border-cyber-teal px-4 py-2 rounded-full transition-all duration-300 inline-block">
+                            > VIEW_DETAILS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50 h-full flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-neon-pink to-violet-fusion flex items-center justify-center mb-4">
+                        <i class="fas fa-database text-3xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 cyber-title tracking-wider">
+                        <span class="text-neon-pink">></span> MED_PLANT_DB
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-6">
+                        Designed a comprehensive biological database of medicinal plant metabolites with Django backend and interactive frontend features.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-neon-pink/50 text-neon-pink rounded-full">Django</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-neon-pink/50 text-neon-pink rounded-full">DB_Design</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-neon-pink/50 text-neon-pink rounded-full">Full_Stack</span>
+                    </div>
+                </div>
+                <div class="px-6 pb-4">
+                    <div class="border-t border-gray-700 pt-4">
+                        <a href="#" class="cyber-button text-xs text-neon-pink hover:text-black hover:bg-neon-pink border border-neon-pink px-4 py-2 rounded-full transition-all duration-300 inline-block">
+                            > VIEW_DETAILS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50 h-full flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-violet-fusion to-cyber-yellow flex items-center justify-center mb-4">
+                        <i class="fas fa-brain text-3xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 cyber-title tracking-wider">
+                        <span class="text-violet-fusion">></span> CRC_SCREENING
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-6">
+                        Screened drug candidates for Colorectal Cancer using Machine Learning/Deep Learning models with high predictive accuracy.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-violet-fusion/50 text-violet-fusion rounded-full">ML/DL</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-violet-fusion/50 text-violet-fusion rounded-full">Drug_Discovery</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-violet-fusion/50 text-violet-fusion rounded-full">Virtual_Screen</span>
+                    </div>
+                </div>
+                <div class="px-6 pb-4">
+                    <div class="border-t border-gray-700 pt-4">
+                        <a href="#" class="cyber-button text-xs text-violet-fusion hover:text-black hover:bg-violet-fusion border border-violet-fusion px-4 py-2 rounded-full transition-all duration-300 inline-block">
+                            > VIEW_DETAILS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 4 -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50 h-full flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-cyber-teal to-violet-fusion flex items-center justify-center mb-4">
+                        <i class="fas fa-project-diagram text-3xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 cyber-title tracking-wider">
+                        <span class="text-cyber-teal">></span> VIRAL_COINFECTION
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-6">
+                        Mapped key targets in Parvovirus B19 and HHV-6 coinfection using advanced network analysis techniques to identify potential therapeutic targets.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-cyber-teal/50 text-cyber-teal rounded-full">Network_Bio</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-cyber-teal/50 text-cyber-teal rounded-full">Viral_Path</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-cyber-teal/50 text-cyber-teal rounded-full">System_Bio</span>
+                    </div>
+                </div>
+                <div class="px-6 pb-4">
+                    <div class="border-t border-gray-700 pt-4">
+                        <a href="#" class="cyber-button text-xs text-cyber-teal hover:text-black hover:bg-cyber-teal border border-cyber-teal px-4 py-2 rounded-full transition-all duration-300 inline-block">
+                            > VIEW_DETAILS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 5 -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50 h-full flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-matrix-green to-neon-pink flex items-center justify-center mb-4">
+                        <i class="fas fa-dna text-3xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 cyber-title tracking-wider">
+                        <span class="text-matrix-green">></span> DIPG_BIOMARKER
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-6">
+                        Led collaborative research on microarray and RNASeq datasets to identify biomarkers and therapeutic targets in Diffuse Intrinsic Pontine Glioma.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-matrix-green/50 text-matrix-green rounded-full">RNASeq</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-matrix-green/50 text-matrix-green rounded-full">Microarray</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-matrix-green/50 text-matrix-green rounded-full">Biomarkers</span>
+                    </div>
+                </div>
+                <div class="px-6 pb-4">
+                    <div class="border-t border-gray-700 pt-4">
+                        <a href="#" class="cyber-button text-xs text-matrix-green hover:text-black hover:bg-matrix-green border border-matrix-green px-4 py-2 rounded-full transition-all duration-300 inline-block">
+                            > VIEW_DETAILS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6 -->
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50 h-full flex flex-col">
+                <div class="p-6 flex-grow">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-r from-cyber-yellow to-cyber-teal flex items-center justify-center mb-4">
+                        <i class="fas fa-atom text-3xl text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 cyber-title tracking-wider">
+                        <span class="text-cyber-yellow">></span> PROTEIN_SIM
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-6">
+                        Simulated 3HTB and NPRS1 proteins using GROMACS and NAMD/VMD to analyze protein stability and dynamic behavior under various conditions.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-cyber-yellow/50 text-cyber-yellow rounded-full">GROMACS</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-cyber-yellow/50 text-cyber-yellow rounded-full">NAMD/VMD</span>
+                        <span class="text-xs px-3 py-1 bg-gray-800/70 border border-cyber-yellow/50 text-cyber-yellow rounded-full">Protein_Dyn</span>
+                    </div>
+                </div>
+                <div class="px-6 pb-4">
+                    <div class="border-t border-gray-700 pt-4">
+                        <a href="#" class="cyber-button text-xs text-cyber-yellow hover:text-black hover:bg-cyber-yellow border border-cyber-yellow px-4 py-2 rounded-full transition-all duration-300 inline-block">
+                            > VIEW_DETAILS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-black/80 backdrop-blur-sm relative overflow-hidden">
+        <div class="text-center mb-16 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 cyber-title tracking-wider">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-teal to-cyber-yellow">[CONTACT.SYS]</span>
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-cyber-teal to-cyber-yellow mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 relative z-10">
+            <div>
+                <h3 class="text-2xl font-bold text-white mb-6 cyber-title tracking-wider">
+                    <span class="text-cyber-teal">></span> LET'S_CONNECT
+                </h3>
+                <p class="text-gray-300 mb-8 font-medium">
+                    I'm always open to discussing research opportunities, collaborations, or just chatting about the latest in computational biology and bioinformatics. Feel free to reach out through any of the channels below.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="cyber-card bg-cyber-gray border border-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-cyber-teal to-matrix-green flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-xl text-black"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400">> EMAIL</h4>
+                                <a href="mailto:yashika.gupta.9440@gmail.com" class="text-cyber-teal hover:text-white transition-colors font-medium">yashika.gupta.9440@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cyber-card bg-cyber-gray border border-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-neon-pink to-violet-fusion flex items-center justify-center mr-4">
+                                <i class="fas fa-phone-alt text-xl text-black"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400">> PHONE</h4>
+                                <a href="tel:+919810961772" class="text-neon-pink hover:text-white transition-colors font-medium">+91 9810961772</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cyber-card bg-cyber-gray border border-gray-800/50 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-cyber-yellow to-neon-pink flex items-center justify-center mr-4">
+                                <i class="fab fa-linkedin-in text-xl text-black"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400">> LINKEDIN</h4>
+                                <a href="https://linkedin.com/in/yashika-gupta-158444261" target="_blank" class="text-cyber-yellow hover:text-white transition-colors font-medium">linkedin.com/in/yashika-gupta-158444261</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cyber-card bg-cyber-gray rounded-lg border border-gray-800/50">
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-white mb-6 cyber-title tracking-wider">
+                        <span class="text-matrix-green">></span> SEND_MESSAGE
+                    </h3>
+                    
+                    <form>
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-300 mb-2 text-sm">> NAME</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyber-teal text-white placeholder-gray-500 transition-all">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-300 mb-2 text-sm">> EMAIL</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-neon-pink text-white placeholder-gray-500 transition-all">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-300 mb-2 text-sm">> MESSAGE</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-matrix-green text-white placeholder-gray-500 transition-all"></textarea>
+                        </div>
+                        <button type="submit" class="cyber-button w-full bg-gradient-to-r from-cyber-teal via-neon-pink to-cyber-yellow text-black px-6 py-3 rounded-full font-bold tracking-wider hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 glow">
+                            > SEND_MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/90 border-t border-gray-800/50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl font-bold mb-6 cyber-title tracking-wider glow">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-teal to-neon-pink">YASHIKA_GUPTA</span>
+            </h2>
+            <p class="bg-clip-text text-transparent bg-gradient-to-r from-matrix-green to-cyber-yellow font-bold mb-8 tracking-wider cyber-title text-lg">
+                COMPUTATIONAL_BIOLOGIST | BIOINFORMATICS_RESEARCHER
+            </p>
+            
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="cyber-card w-12 h-12 rounded-full bg-cyber-gray border border-gray-800/50 flex items-center justify-center text-cyber-teal hover:text-white hover:bg-cyber-teal transition-all duration-300">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="#" class="cyber-card w-12 h-12 rounded-full bg-cyber-gray border border-gray-800/50 flex items-center justify-center text-neon-pink hover:text-white hover:bg-neon-pink transition-all duration-300">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="cyber-card w-12 h-12 rounded-full bg-cyber-gray border border-gray-800/50 flex items-center justify-center text-matrix-green hover:text-white hover:bg-matrix-green transition-all duration-300">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="#" class="cyber-card w-12 h-12 rounded-full bg-cyber-gray border border-gray-800/50 flex items-center justify-center text-cyber-yellow hover:text-white hover:bg-cyber-yellow transition-all duration-300">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+            </div>
+            
+            <p class="text-gray-500 text-sm cyber-title tracking-wider">
+                [©_2023_YASHIKA_GUPTA_V4.2.0]_[ALL_RIGHTS_RESERVED]
+            </p>
+            <p class="text-gray-700 text-xs mt-2">
+                > System ready: [OK] > Memory allocation: [COMPLETE] > Bio processes: [RUNNING]
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Form submission handling
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                // Here you would typically send the data to a server
+                console.log('Form submitted:', { name, email, message });
+                
+                // Show success message
+                alert('> Message transmitted successfully. Awaiting response protocol...');
+                
+                // Reset form
+                contactForm.reset();
+            });
+        }
+        
+        // Create binary rain effect
+        const binaryRain = document.getElementById('binaryRain');
+        const characters = ['0', '1', '0', '1', '0', '1', '0', '1', '0', '1'];
+        
+        function createBinaryCharacter() {
+            const char = document.createElement('div');
+            char.className = 'binary-character';
+            char.textContent = characters[Math.floor(Math.random() * characters.length)];
+            char.style.left = `${Math.random() * 100}%`;
+            char.style.top = `${-20}px`;
+            char.style.fontSize = `${10 + Math.random() * 10}px`;
+            char.style.opacity = `${0.1 + Math.random() * 0.5}`;
+            char.style.animationDuration = `${5 + Math.random() * 10}s`;
+            char.style.animationDelay = `${Math.random() * 5}s`;
+            binaryRain.appendChild(char);
+            
+            // Remove character after animation completes
+            setTimeout(() => {
+                char.remove();
+            }, (5 + Math.random() * 10) * 1000);
+        }
+        
+        // Create initial binary characters
+        for (let i = 0; i < 30; i++) {
+            createBinaryCharacter();
+        }
+        
+        // Add more characters periodically
+        setInterval(createBinaryCharacter, 200);
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.cyber-card, .timeline-item').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
